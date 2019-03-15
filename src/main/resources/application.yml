@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url:  jdbc:sqlserver://127.0.0.1;databaseName=OFPSpring
+    username:  sa
+    password:  a1A111*
+    driverClassName : com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    show-sql: true
+    hibernate:
+      dialect:  org.hibernate.dialect.SQLServer2016Dialect
+      ddl-auto:  update

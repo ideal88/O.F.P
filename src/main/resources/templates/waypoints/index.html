@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>UM OFP-Home</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
+    <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/style/site.css">
+
+
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">UM - OFP</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Route Master<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Home Page</a></li>
+                        <li><a href="#">About Page</a></li>
+                        <li><a href="#">Contact Page</a></li>
+                        <li><a href="#">My Page</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="container body-content" style="padding-top: 40px">
+    <h3 class="text-primary">
+        Waypoints List
+    </h3>
+    <form method="post" action="/waypoints/index">
+        <table >
+            <tr>
+                <td>
+                    Filter
+                </td>
+                <td>
+                    <select type="text" name="countryID" class="form-control"  >
+                     <option th:each="country : ${countries}" th:value="${country.countryID}" th:text="${country.countryName}">Country</option>
+                    </select>
+                </td>
+                <td>
+
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"> Search </span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br/>
+    <br/>
+    <table class="table table-bordered table-striped table-hover">
+        <tr >
+            <th>
+                Country
+            </th>
+            <th >
+                Waypoint Type
+            </th>
+            <th>
+                Waypoint Name
+            </th>
+            <th>
+                Waypoint Latitude
+            </th>
+            <th>
+                Waypoint Longitude
+            </th>
+            <th>
+                Magnetic Variation
+            </th>
+            <th>
+                Waypoint Comment
+            </th>
+
+        </tr>
+        <tr th:each="waypoint : ${waypoints}">
+            <td th:text="${waypoint.country.countryName}">
+                Country
+            </td>
+            <td th:text="${waypoint.waypointType.waypointTypeDescription}">
+                Waypoint Comment
+            </td>
+            <td th:text="${waypoint.waypointName}">
+                Waypoint Name
+            </td>
+            <td th:text="${waypoint.waypointLatitude}">
+                Waypoint Latitude
+            </td>
+            <td th:text="${waypoint.waypointLongitude}">
+                Waypoint Longitude
+            </td>
+            <td th:text="${waypoint.waypointMagnaticVariation}">
+                Magnetic Variation
+            </td>
+            <td th:text="${waypoint.waypointComment}">
+                Waypoint Comment
+            </td>
+
+        </tr>
+
+    </table>
+</div>
+</body>
+</html>
