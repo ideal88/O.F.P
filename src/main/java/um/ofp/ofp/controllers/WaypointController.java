@@ -4,38 +4,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import um.ofp.ofp.models.Country;
-import um.ofp.ofp.models.WaypointType;
-import um.ofp.ofp.repositories.CountryRepository;
-import um.ofp.ofp.repositories.WaypointRepository;
-import um.ofp.ofp.repositories.WaypointTypeRepository;
 
-import java.util.Collection;
-import java.util.Map;
+import um.ofp.ofp.services.CountryService;
+import um.ofp.ofp.services.WaypointService;
+
+
 
 @Controller
 public class WaypointController {
-    private WaypointRepository waypointRepository;
-    private CountryRepository countryRepository;
-    private WaypointTypeRepository waypointTypeRepository ;
 
-    public WaypointController(WaypointRepository waypointRepository, CountryRepository countryRepository, WaypointTypeRepository waypointTypeRepository)
-    {
-        this.waypointRepository = waypointRepository;
-        this.countryRepository = countryRepository;
-        this.waypointTypeRepository = waypointTypeRepository;
+private final CountryService countryService;
+private final WaypointService waypointService;
+
+    public WaypointController(CountryService countryRepository, WaypointService waypointService) {
+        this.countryService = countryRepository;
+        this.waypointService = waypointService;
     }
-
 
     @RequestMapping({"/waypoints/","/waypoints/index"})
     @PostMapping({"/waypoints/","/waypoints/index"})
     public String ListAllWaypoints(Model model,String countryID)
     {
-        System.out.println(countryID);
-        Country country = countryRepository.findByCountryID(countryID);
-
-        model.addAttribute("waypoints",waypointRepository.findByCountry(country));
-        model.addAttribute("countries",countryRepository.findAll());
+        model.addAttribute("waypoints",waypointService.getWaypointsInCountry(countryID));
+        model.addAttribute("countries",countryService.getAllCounries());
         return "waypoints/index";
     }
 }

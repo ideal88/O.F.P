@@ -10,7 +10,7 @@ import java.util.Set;
 
 public interface WaypointRepository extends CrudRepository<Waypoint,String> {
 
-    Optional<Waypoint> findByCountry(Country country);
+    Set<Waypoint> findByCountry(Country country);
     Optional<Waypoint> findByWaypointType(Waypoint waypoint);
     Optional<Waypoint> findByCountryAndWaypointType(Country country, WaypointType waypointType);
 

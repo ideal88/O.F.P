@@ -9,4 +9,5 @@ import java.util.Optional;
 @Service
 public interface CountryRepository extends CrudRepository<Country,String> {
     Country findByCountryID(String id);
+
 }
