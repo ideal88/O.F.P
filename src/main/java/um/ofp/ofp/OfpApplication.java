@@ -10,7 +10,7 @@ public class OfpApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(OfpApplication.class, args);
-        System.out.println("hello");
+       // System.out.println(String.format("%-" + 10 + "s" + "|", "UTULI"));
     }
 
 }

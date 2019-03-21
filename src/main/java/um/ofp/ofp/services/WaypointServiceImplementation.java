@@ -10,12 +10,12 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public  class WaypointServiceImplimentation implements WaypointService {
+public  class WaypointServiceImplementation implements WaypointService {
 
     final private WaypointRepository waypointRepository;
     final private CountryRepository countryRepository;
 
-    public WaypointServiceImplimentation(WaypointRepository waypointRepository, CountryRepository countryRepository) {
+    public WaypointServiceImplementation(WaypointRepository waypointRepository, CountryRepository countryRepository) {
         this.waypointRepository = waypointRepository;
         this.countryRepository = countryRepository;
     }
@@ -27,8 +27,10 @@ public  class WaypointServiceImplimentation implements WaypointService {
     }
 
     @Override
-    public Waypoint getwaypointById(String waypointID) {
-        return null;
+    public Optional<Waypoint> getwaypointById(String countryID, String waypointID) {
+        //waypointID = String.format("%-" + 30 + "s", waypointID);
+        Country country = countryRepository.findById(countryID).get();
+        return  waypointRepository.findByCountryAndWaypointName(country,waypointID);
     }
 
     @Override
