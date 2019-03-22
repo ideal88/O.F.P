@@ -4,24 +4,61 @@ import org.aerosystem.operationalflightplan.models.Waypoint;
 import org.aerosystem.operationalflightplan.repositories.CountryRepository;
 import org.aerosystem.operationalflightplan.repositories.WaypointRepository;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.parameterized.BlockJUnit4ClassRunnerWithParameters;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+
+@RunWith(Parameterized.class)
 public class WaypointServiceImplementationTest {
-    WaypointService waypointService;
+
+   private String countryID;
+   private HashSet<Waypoint> waypoints;
+
+    public WaypointServiceImplementationTest(String countryID, HashSet<Waypoint> waypoints) {
+        this.countryID = countryID;
+        this.waypoints = waypoints;
+    }
+
+    @Parameterized.Parameters
+    public static Collection data() {
+        Set<Waypoint> waypointsZI = new HashSet<>();
+        Waypoint waypointZI1 = new Waypoint();
+        waypointZI1.setWaypointID("UTULI");
+        Waypoint waypointZI2 = new Waypoint();
+        waypointZI2.setWaypointID("VGO1");
+        waypointsZI.add(waypointZI1);
+
+        Set<Waypoint> waypointsSA = new HashSet<>();
+        Waypoint waypointSA1 = new Waypoint();
+        waypointSA1.setWaypointID("NEGSAG");
+        Waypoint waypointSA2 = new Waypoint();
+        waypointSA2.setWaypointID("VGO");
+        waypointsSA.add(waypointSA1);
+        waypointsSA.add(waypointSA2);
+
+       return Arrays.asList(new Object[][] {{"ZI",waypointsZI},{"SA",waypointsSA}});
+    }
+
+    private WaypointService waypointService;
 
     @Mock
-    WaypointRepository waypointRepository;
+    private WaypointRepository waypointRepository;
     @Mock
-    CountryRepository countryRepository;
+    private CountryRepository countryRepository;
 
     @Before
     public  void setWaypointService()
@@ -31,15 +68,29 @@ public class WaypointServiceImplementationTest {
     }
 
 
-
     @Test
+   // @Ignore
     public void getWaypointsInCountry() {
-        int numberOfWaypoints =56;
-        String countryCode = "ZI";
-       // Waypoint waypoint = waypointService.getwaypointById("ZI","UTULI").get();
-       // assertEquals("UTULI" ,waypoint.getWaypointName());
-        Set<Waypoint> waypointSetInZimbabwe = waypointService.getWaypointsInCountry(countryCode);
-        assertEquals(numberOfWaypoints,waypointSetInZimbabwe.size());
+
+        Set<Waypoint> waypointsZI = new HashSet<>();
+        Waypoint waypointZI1 = new Waypoint();
+        waypointZI1.setWaypointID("UTULI");
+        Waypoint waypointZI2 = new Waypoint();
+        waypointZI2.setWaypointID("VGO1");
+        waypointsZI.add(waypointZI1);
+
+        Set<Waypoint> waypointsSA = new HashSet<>();
+        Waypoint waypointSA1 = new Waypoint();
+        waypointSA1.setWaypointID("NEGSAG");
+        Waypoint waypointSA2 = new Waypoint();
+        waypointSA2.setWaypointID("VGO");
+        waypointsSA.add(waypointSA1);
+        waypointsSA.add(waypointSA2);
+        when(waypointService.getWaypointsInCountry("ZI")).thenReturn(waypointsZI);
+        when(waypointService.getWaypointsInCountry("SA")).thenReturn(waypointsSA);
+        assertEquals(waypoints.size(),waypointService.getWaypointsInCountry(countryID).size());
+
+
     }
 
     @Test

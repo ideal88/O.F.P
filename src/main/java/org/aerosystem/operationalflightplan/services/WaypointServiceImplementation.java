@@ -27,7 +27,7 @@ public  class WaypointServiceImplementation implements WaypointService {
     }
 
     @Override
-    public Optional<Waypoint> getwaypointById(String countryID, String waypointID) {
+    public Optional<Waypoint> getWaypointById(String countryID, String waypointID) {
         //waypointID = String.format("%-" + 30 + "s", waypointID);
         Country country = countryRepository.findById(countryID).get();
         return  waypointRepository.findByCountryAndWaypointName(country,waypointID);

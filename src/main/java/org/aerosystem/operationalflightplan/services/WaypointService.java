@@ -7,8 +7,8 @@ import java.util.Set;
 
 
 public interface WaypointService {
-    Set<Waypoint> getWaypointsInCountry(String cointryID);
-    Optional<Waypoint> getwaypointById(String country, String waypointID);
+    Set<Waypoint> getWaypointsInCountry(String countryID);
+    Optional<Waypoint> getWaypointById(String country, String waypointID);
     boolean isWaypoint(String waypointID);
 
 }

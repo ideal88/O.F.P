@@ -38,8 +38,8 @@ private final DistanceCalculationService distanceCalculationService;
         model.addAttribute("waypoints",waypointService.getWaypointsInCountry(countryID));
         model.addAttribute("countries",countryService.getAllCounries());
        model.addAttribute("distance",distanceCalculationService.distanceBetweenTwoWaypointsInNauticalMiles(
-                waypointService.getwaypointById("ZI","VGO").get()
-                ,waypointService.getwaypointById("ZI","UTULI").get()
+                waypointService.getWaypointById("ZI","VGO").get()
+                ,waypointService.getWaypointById("ZI","UTULI").get()
         ));
         return "waypoints/index";
     }
