@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+/**
+ *
+ */
 @Controller
 public class WaypointController {
 
@@ -21,6 +24,7 @@ private final DistanceCalculationService distanceCalculationService;
         this.waypointService = waypointService;
         this.distanceCalculationService = distanceCalculationService;
     }
+
 
     @RequestMapping({"/waypoints/","/waypoints/index"})
      String ListAllWaypoints(Model model)
@@ -38,8 +42,8 @@ private final DistanceCalculationService distanceCalculationService;
         model.addAttribute("waypoints",waypointService.getWaypointsInCountry(countryID));
         model.addAttribute("countries",countryService.getAllCounries());
        model.addAttribute("distance",distanceCalculationService.distanceBetweenTwoWaypointsInNauticalMiles(
-                waypointService.getWaypointById("ZI","VGO").get()
-                ,waypointService.getWaypointById("ZI","UTULI").get()
+                waypointService.getWaypointById("ZI","VGO").orElse(null)
+                ,waypointService.getWaypointById("ZI","UTULI").orElse(null)
         ));
         return "waypoints/index";
     }
